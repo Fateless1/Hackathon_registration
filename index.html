@@ -57,7 +57,23 @@
             font-size: 24px;
             margin-bottom: 30px;
         }
+        @media (max-width: 768px) {
+            .mega-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding: 10px;
+            }
         
+            .mega-box {
+                width: 100% !important; 
+                min-height: 200px;
+            }
+            
+            h1 {
+                font-size: 40px !important; 
+            }
+        }
         @media (min-width: 901px) {
             .member-card:nth-child(4) { grid-column-start: 1; transform: translateX(50%); }
             .member-card:nth-child(5) { grid-column-start: 2; transform: translateX(50%); }
