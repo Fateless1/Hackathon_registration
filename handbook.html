@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGA | HANDBOOK</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #000; --surface: #050505; --border: #1a1a1a; --accent: #fff; --text-dim: #666; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg); color: var(--accent); font-family: 'JetBrains Mono', monospace; margin: 0; display: flex; }
+
+        /* Sidebar Nav */
+        .sidebar { width: 300px; height: 100vh; border-right: 1px solid var(--border); position: fixed; padding: 40px; display: flex; flex-direction: column; gap: 20px; }
+        .sidebar a { color: var(--text-dim); text-decoration: none; font-size: 12px; transition: 0.3s; }
+        .sidebar a:hover, .sidebar a.active { color: var(--accent); }
+        .sidebar .back-link { margin-bottom: 40px; color: var(--accent); font-weight: bold; }
+
+        /* Content Area */
+        .content { margin-left: 300px; padding: 80px 100px; max-width: 1000px; }
+        .label { color: var(--text-dim); font-size: 12px; letter-spacing: 4px; display: block; margin-bottom: 20px; }
+        h1 { font-size: 60px; letter-spacing: -3px; margin: 0 0 60px 0; }
+        h2 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-top: 60px; }
+        p { color: var(--text-dim); line-height: 1.8; font-size: 16px; }
+        
+        .doc-section { margin-bottom: 100px; scroll-margin-top: 80px; }
+
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); padding: 20px; }
+            .content { margin-left: 0; padding: 40px 20px; }
+        }
+
+        @media print {
+            /* Hide the navigation and footer when printing */
+            .header, footer, .back-link {
+                display: none !important;
+            }
+            
+            /* Reset colors for paper (White background, Black text) */
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .container {
+                padding: 0;
+                margin: 0;
+            }
+
+            .rule-block {
+                border-left: 2px solid #000;
+                page-break-inside: avoid;
+            }
+
+            h1, h2 {
+                color: black !important;
+            }
+
+            p, li {
+                color: #333 !important;
+            }
+
+            .critical, .critical h2, .critical p {
+                color: red !important;
+                border-color: red !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <a href="landing.html" class="back-link">← BACK_TO_BASE</a>
+        <span class="label">CONTENTS</span>
+        <a href="#intro">01_INTRODUCTION</a>
+        <a href="#tech">02_TECH_STACK</a>
+        <a href="#schedule">03_SCHEDULE</a>
+        <a href="#judging">04_JUDGING</a>
+        <button onclick="window.print()" class="back-link" style="background:rgb(31, 30, 30); cursor:pointer; margin-right: 5px;">
+            DOWNLOAD PDF
+        </button>
+    </nav>
+
+    <main class="content">
+        <span class="label">SAGA_SYSTEMS // DOCUMENT_01</span>
+        <h1>PARTICIPANT HANDBOOK</h1>
+
+        <section class="doc-section" id="intro">
+            <h2>01_INTRODUCTION</h2>
+            <p>Welcome to SAGA. This handbook serves as your primary guide for the 2026 Hackathon cycle. Our mission is to push the boundaries of Kyrgyz engineering.</p>
+        </section>
+
+        <section class="doc-section" id="tech">
+            <h2>02_TECH_STACK</h2>
+            <p>Participants are expected to be proficient in Node.js, Rust, or Solidity. All projects must be submitted via GitHub with a clear README.md and deployment instructions.</p>
+        </section>
+
+        <section class="doc-section" id="schedule">
+            <h2>03_SCHEDULE</h2>
+            <p>Day 1: Opening Ceremony & Team Formation.<br>Day 2: Deep Build Phase (24h).<br>Day 3: Final Pitches & Awards.</p>
+        </section>
+
+    </main>
+
+</body>
+</html>
