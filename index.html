@@ -62,6 +62,26 @@
         .event-main { flex: 1; min-width: 300px; }
         .event-sidebar { width: 250px; border-left: 1px solid var(--border); padding-left: 40px; }
 
+
+        /* timer */
+        .status-bar { 
+            padding: 40px 20px; 
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .timer-box {
+            border: 1px solid var(--border);
+            padding: 20px 40px;
+            background: var(--surface);
+            text-align: center;
+            min-width: 300px;
+        }
+        .timer-label { font-size: 10px; color: var(--text-dim); letter-spacing: 3px; margin-bottom: 10px; text-transform: uppercase; }
+        #timer { font-size: 28px; font-weight: 700; color: var(--accent); letter-spacing: 2px; }
+        /* timer */
+        
         @media (max-width: 900px) {
             .nav { padding: 20px; }
             .nav-links { display: none; }
@@ -105,7 +125,12 @@
         <a href="/index.html" target="_blank" style="color: white; text-decoration: none; font-weight: bold; border: 1px solid white; padding: 10px 20px;">REGISTER NOW</a>
     </nav>
     
-    <div id="countdown" style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: var(--accent);">00d 00h 00m 00s</div>
+    <section class="status-bar">
+        <div class="timer-box">
+            <div class="timer-label">System Launch In:</div>
+            <div id="timer">00:00:00:00</div>
+        </div>
+    </section>
 
     <section class="hero", id="mission">
         <span class="label">OUR MISSION</span>
