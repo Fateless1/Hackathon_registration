@@ -132,6 +132,33 @@
         </div>
     </section>
 
+    <script>
+        const countDownDate = new Date("May 4, 2026 09:00:00").getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Using padStart to keep the numbers from jumping around
+            document.getElementById("timer").innerHTML = 
+                days + "d " + 
+                hours.toString().padStart(2, '0') + "h " + 
+                minutes.toString().padStart(2, '0') + "m " + 
+                seconds.toString().padStart(2, '0') + "s";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "LIFTOFF";
+            }
+        }, 1000);
+    </script>
+    
+    
     <section class="hero", id="mission">
         <span class="label">OUR MISSION</span>
         <span class="label">BUILDING THE SAGA ECOSYSTEM.<br><br>Smart Nation: Technologies and Ideas for Society</span>
@@ -283,17 +310,5 @@
         SAGA
     </footer>
 
-    <script>
-        const target = new Date("May 4, 2026 09:00:00").getTime();
-        setInterval(() => {
-            const now = new Date().getTime();
-            const diff = target - now;
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-            document.getElementById("countdown").innerHTML = d + "d " + h + "h " + m + "m " + s + "s";
-        }, 1000);
-    </script>
 </body>
 </html>
