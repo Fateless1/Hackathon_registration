@@ -7,315 +7,172 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #000; --surface: #050505; --border: #1a1a1a; --accent: #fff; --text-dim: #666; }
-        
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { background: var(--bg); color: var(--accent); font-family: 'JetBrains Mono', monospace; margin: 0; overflow-x: hidden; }
         
         .nav { padding: 30px 50px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 100; }
         .logo-img { height: 45px; width: auto; filter: brightness(0) invert(1); } 
-
         .nav-links { display: flex; gap: 30px; }
         .nav-links a { text-decoration: none; color: var(--text-dim); font-size: 12px; letter-spacing: 2px; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent); }
+        .reg-btn { color: white; text-decoration: none; font-weight: bold; border: 1px solid white; padding: 10px 20px; transition: 0.3s; }
+        .reg-btn:hover { background: white; color: black; }
 
         .hero { padding: 120px 50px; border-bottom: 1px solid var(--border); min-height: 70vh; display: flex; flex-direction: column; justify-content: center; scroll-margin-top: 100px; }
-        .hero h1 { font-size: clamp(40px, 10vw, 100px); margin: 0; line-height: 0.9; letter-spacing: -4px; text-transform: uppercase; }
-        .hero p { font-size: 22px; color: var(--text-dim); max-width: 900px; margin-top: 40px; line-height: 1.4; }
-
         .mega-grid { display: grid; grid-template-columns: repeat(2, 1fr); background: var(--border); gap: 1px; }
         .mega-box { background: var(--bg); padding: 80px 50px; scroll-margin-top: 100px; }
         .span-2 { grid-column: span 2; }
-
         .label { font-size: 30px; color: white; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 40px; display: block; }
 
-        .team-display { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; justify-content: center; margin-top: 60px;}
-        .member-card { position: relative; border:none; text-align: center;}
-        .member-img { width: 250px; height: 250px; object-fit: cover; background: #111; display: block; margin: 0 auto 30px auto; border-radius: 50%; border: 2px solid var(--border); transition: 0.3s; filter: grayscale(1); }
-        .member-card:hover .member-img { border-color: var(--accent); filter: grayscale(0); }
-        .member-info { padding: 0; border-top: none; }
-        .member-name { font-size: 24px; font-weight: bold; text-transform: uppercase; }
-        .member-role { color: var(--text-dim); font-size: 14px; margin-top: 5px; }
+        /* Countdown Style */
+        .countdown-container { display: flex; gap: 30px; margin-top: 40px; border-top: 1px solid var(--border); padding-top: 40px; }
+        .count-item { display: flex; flex-direction: column; }
+        .count-val { font-size: 48px; font-weight: 700; }
+        .count-unit { font-size: 10px; color: var(--text-dim); letter-spacing: 2px; }
 
-        .partner-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 60px; align-items: center; }
-        .partner-logo { width: 100%; max-width: 180px; filter: brightness(0) invert(1); opacity: 0.5; transition: 0.3s; } 
-        .partner-logo:hover { opacity: 1; }
+        .team-display { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; margin-top: 60px; }
+        .member-card { text-align: center; }
+        .member-img { width: 250px; height: 250px; object-fit: cover; background: #111; border-radius: 50%; border: 2px solid var(--border); transition: 0.3s; filter: grayscale(1); margin-bottom: 20px; }
+        .member-card:hover .member-img { border-color: var(--accent); filter: grayscale(0); }
+        .member-name { font-size: 20px; font-weight: bold; text-transform: uppercase; }
+        .member-role { color: var(--text-dim); font-size: 12px; margin-top: 5px; }
 
         .faq-item { border-bottom: 1px solid var(--border); }
-        .faq-item summary { padding: 40px 0; font-size: 28px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; }
+        .faq-item summary { padding: 40px 0; font-size: 24px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; text-transform: uppercase; }
         .faq-item summary::after { content: "↓"; color: var(--text-dim); }
-        .faq-item p { padding-bottom: 40px; color: var(--text-dim); font-size: 18px; max-width: 800px; line-height: 1.6; }
+        .faq-item p { padding-bottom: 40px; color: var(--text-dim); font-size: 16px; line-height: 1.6; }
 
-        .contact-links { display: flex; gap: 20px; justify-content: center; width: 100%; margin-top: 20px;}
-        .contact-link { text-decoration: none; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .contact-links { display: flex; gap: 30px; justify-content: center; }
         .contact-link svg { width: 40px; height: 40px; fill: var(--text-dim); transition: 0.3s; }
         .contact-link:hover svg { fill: var(--accent); transform: translateY(-5px); }
-        .contact-link:hover { background: white; color: black; }
-        .no-border { background: var(--bg) !important; }
-        
-        .mega-box h1 {
-            font-size: 24px;
-            margin-bottom: 30px;
-        }
-        @media (max-width: 768px) {
-            .mega-grid {
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-                padding: 10px;
-            }
-        
-            .mega-box {
-                width: 100% !important; 
-                min-height: 200px;
-            }
-            
-            h1 {
-                font-size: 40px !important; 
-            }
-        }
-        @media (min-width: 901px) {
-            .member-card:nth-child(4) { grid-column-start: 1; transform: translateX(50%); }
-            .member-card:nth-child(5) { grid-column-start: 2; transform: translateX(50%); }
-        }
-        @media (max-width: 768px) {
-            .contact-links {
-                flex-direction: column;
-            }
-        }
+
         @media (max-width: 900px) {
-            .nav { padding: 20px; }
             .nav-links { display: none; }
-            .mega-grid { grid-template-columns: 1fr; } 
-            .span-2 { grid-column: span 1; } 
-            .contact-links { grid-template-columns: 1fr; }
-            .team-display { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-            .member-img { width: 150px; height: 150px; }
-        }
-        @media (max-width: 500px) {
-            .team-display { grid-template-columns: 1fr; }
-            .member-card:nth-child(4), .member-card:nth-child(5) { transform: none; }
+            .mega-grid { grid-template-columns: 1fr; }
+            .span-2 { grid-column: span 1; }
+            .team-display { grid-template-columns: repeat(2, 1fr); }
+            .countdown-container { gap: 15px; }
+            .count-val { font-size: 32px; }
         }
     </style>
 </head>
 <body>
 
     <nav class="nav">
-        <img src="YOUR_LOGO_HERE" alt="SAGA" class="logo-img">
-        
+        <div style="font-weight: bold; font-size: 24px; letter-spacing: 5px;">SAGA</div>
         <div class="nav-links">
             <a href="#mission">MISSION</a>
             <a href="#event">HACKATHON</a>
             <a href="#team">TEAM</a>
-            
-            <div id="countdown" style="font-size: 24px; color: var(--accent); margin-top: 20px; font-weight: bold;">
-                00d 00h 00m 00s
-            </div>
-            
-            <a href="#sponsors">SPONSORS</a>
-            <a href="#mentors">MENTORS</a>
             <a href="#faq">FAQ</a>
             <a href="#connect">CONNECT</a>
         </div>
-
-        <a href="/index.html" target="_blank" style="color: white; text-decoration: none; font-weight: bold; border: 1px solid white; padding: 10px 20px;">REGISTER NOW</a>
+        <a href="#" class="reg-btn">REGISTER NOW</a>
     </nav>
 
-    <!--***************** OUR MISSION ****************-->
-    <section class="hero", id="mission">
+    <section class="hero" id="mission">
         <span class="label">OUR MISSION</span>
-        <span class="label">BUILDING THE SAGA ECOSYSTEM.<br><br>Smart Nation: Technologies and Ideas for Society</span>
+        <h1 style="font-size: clamp(30px, 8vw, 80px); line-height: 1;">BUILDING THE SAGA ECOSYSTEM.</h1>
+        <p style="font-size: 20px; color: var(--text-dim);">Smart Nation: Technologies and Ideas for Society</p>
     </section>
-    <!--***************** OUR MISSION ****************-->
 
-    <!--***************** EVENT ****************-->
     <div class="mega-box span-2" id="event">
         <span class="label">HACKATHON</span>
-        <div style="display: flex; gap: 60px; align-items: flex-start;">
-            <div style="flex: 1;">
-                <h2 style="font-size: 40px; margin-top: 0; line-height: 1;">SAGA HACK_2026</h2>
-                <p style="font-size: 18px; color: var(--text-dim); margin-bottom: 30px;">
-                    48 hours of high-intensity building. We are gathering the top 100 developers 
-                    in Bishkek to solve critical infrastructure challenges using decentralized protocols. 
-                    No slides, just source code.
+        <div style="display: grid; grid-template-columns: 1fr 300px; gap: 60px;">
+            <div>
+                <h2 style="font-size: 40px; margin: 0;">SAGA HACK_2026</h2>
+                <p style="color: var(--text-dim); font-size: 18px; margin: 20px 0;">
+                    48 hours of high-intensity building. Solving critical infrastructure challenges using decentralized protocols.
                 </p>
-                <a href="#info" style="color: var(--accent); text-decoration: none; font-size: 14px; border-bottom: 1px solid var(--accent); padding-bottom: 5px;">
-                    READ FULL HANDBOOK AND RULES ↓
-                </a>
+                
+                <div class="countdown-container">
+                    <div class="count-item"><span class="count-val" id="days">00</span><span class="count-unit">DAYS</span></div>
+                    <div class="count-item"><span class="count-val" id="hours">00</span><span class="count-unit">HOURS</span></div>
+                    <div class="count-item"><span class="count-val" id="minutes">00</span><span class="count-unit">MINS</span></div>
+                    <div class="count-item"><span class="count-val" id="seconds">00</span><span class="count-unit">SECS</span></div>
+                </div>
             </div>
             
-            <div style="width: 250px; border-left: 1px solid var(--border); padding-left: 40px;">
-                <div style="margin-bottom: 20px;">
-                    <div style="font-size: 10px; color: var(--text-dim);">DATE</div>
-                    <div style="font-size: 16px;">MAY 4-5, 2026</div>
+            <div style="border-left: 1px solid var(--border); padding-left: 40px;">
+                <div style="margin-bottom: 30px;">
+                    <div class="count-unit">DATE</div>
+                    <div style="font-size: 20px;">MAY 4-5, 2026</div>
                 </div>
-                <div style="margin-bottom: 20px;">
-                    <div style="font-size: 10px; color: var(--text-dim);">PRIZE POOL</div>
-                    <div style="font-size: 16px;">$10,000 USD</div>
+                <div style="margin-bottom: 30px;">
+                    <div class="count-unit">PRIZE POOL</div>
+                    <div style="font-size: 20px;">$10,000 USD</div>
                 </div>
                 <div>
-                    <div style="font-size: 10px; color: var(--text-dim);">LOCATION</div>
-                    <div style="font-size: 16px;">BISHKEK</div>
+                    <div class="count-unit">LOCATION</div>
+                    <div style="font-size: 20px;">BISHKEK, KG</div>
                 </div>
             </div>
         </div>
     </div>
-    <!--***************** EVENT ****************-->
 
     <div class="mega-grid">
-        <!--***************** OUR TEAM ****************-->
-        <div class="mega-box span-2", id="team">
-            <h1 style="text-align:center">OUR TEAM</h1>
-            
+        <div class="mega-box span-2" id="team">
+            <span class="label" style="text-align: center;">CORE TEAM</span>
             <div class="team-display">
                 <div class="member-card">
-                    <img src="PHOTO_URL_HERE" class="member-img"> <div class="member-info">
-                        <div class="member-name">Matygany Nur</div>
-                        <div class="member-role">hz</div>
-                    </div>
+                    <div class="member-img"></div>
+                    <div class="member-name">Matygany Nur</div>
+                    <div class="member-role">Infrastructure Architect</div>
                 </div>
-
                 <div class="member-card">
-                    <img src="PHOTO_URL_HERE" class="member-img"> <div class="member-info">
-                        <div class="member-name">Amangeldiev Sherkhan</div>
-                        <div class="member-role">hz</div>
-                    </div>
+                    <div class="member-img"></div>
+                    <div class="member-name">Amangeldiev Sherkhan</div>
+                    <div class="member-role">Systems Engineer</div>
                 </div>
-
                 <div class="member-card">
-                    <img src="PHOTO_URL_HERE" class="member-img"> <div class="member-info">
-                        <div class="member-name">Mukashov Daniar</div>
-                        <div class="member-role">GAY</div>
-                    </div>
-                </div>
-
-                <div class="member-card">
-                    <img src="PHOTO_URL_HERE" class="member-img"> <div class="member-info">
-                        <div class="member-name">Symbatbekov Yenisey</div>
-                        <div class="member-role">PR Manager</div>
-                    </div>
-                </div>
-                
-                <div class="member-card">
-                    <img src="PHOTO_URL_HERE" class="member-img"> <div class="member-info">
-                        <div class="member-name">Baimyrzaev Aruubek</div>
-                        <div class="member-role">hz</div>
-                    </div>
+                    <div class="member-img"></div>
+                    <div class="member-name">Mukashov Daniar</div>
+                    <div class="member-role">Full Stack Developer</div>
                 </div>
             </div>
-
         </div>
-        <!--***************** OUR TEAM ****************-->
 
-
-
-        <!--***************** SPONSORS ****************-->
-        <div class="mega-box span-2", id="sponsors">
-            <span class="label">SPONSORS</span>
-            <div class="partner-grid">
-                <img src="PARTNER_LOGO_1" class="partner-logo"> <img src="PARTNER_LOGO_2" class="partner-logo"> <img src="PARTNER_LOGO_3" class="partner-logo"> <img src="PARTNER_LOGO_4" class="partner-logo"> </div>
+        <div class="mega-box span-2" id="faq">
+            <span class="label">FAQ</span>
+            <details class="faq-item">
+                <summary>The Curriculum</summary>
+                <p>Hands-on engineering, system design, and decentralized technologies. No fluff, just production-level builds.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Participation Cost</summary>
+                <p>SAGA is a community-funded meritocracy. Your only cost is your time and dedication.</p>
+            </details>
         </div>
-        <!--***************** SPONSORS ****************-->
-
-        <!--***************** Mentors ****************-->
-        <div class="mega-box span-2", id="mentors">
-            <h1 style="text-align:center">MENTORS</h1>
-            
-            <div class="team-display">
-                <div class="member-card">
-                    <img src="PHOTO_URL_HERE" class="member-img"> <div class="member-info">
-                        <div class="member-name">Salamat Burjuev</div>
-                        <div class="member-role">hz</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!--***************** Mentors ****************-->
-
-        <!--***************** FAQ ****************-->
-        <div class="mega-box span-2", id="faq">
-            <h1 style="text-align:center;">FAQ</h1>
-            <div class="faq-container">
-                <details class="faq-item">
-                    <summary>The Curriculum</summary>
-                    <p>Hands-on engineering, system design, and decentralized technologies. No fluff, just production-level builds.</p>
-                </details>
-                <details class="faq-item">
-                    <summary>Participation Cost</summary>
-                    <p>SAGA is a community-funded meritocracy. Your only cost is your time and dedication.</p>
-                </details>
-            </div>
-        </div>
-        <!--***************** FAQ ****************-->
-
     </div>
 
-    <div class="mega-grid no-border">
-        
-        <!--***************** FULL INFO ****************-->
-        <div class="mega-box" id="info">
-            <h1 style="text-align:center; font-size: 20px;">FULL INFORMATION</h1>
-            <div class="contact-links">
-                <a href="rules.html" target="_blank" class="contact-link" title="Rules">
-                    <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                </a>
-                <a href="handbook.html" target="_blank" class="contact-link" title="Handbook">
-                    <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 4h2v5l-1-.75L9 9V4z"/></svg>
-                </a>
-            </div>
+    <footer class="mega-box" id="connect" style="text-align: center; border-top: 1px solid var(--border);">
+        <span class="label">CONNECT</span>
+        <div class="contact-links">
+            <a href="#" class="contact-link"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.13 7.19c-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59l2.76-2.69c.05-.18-.05-.18-.21-.02-2.73 1.84-4.22 2.79-4.22 2.79-.32-.01-1.08-.4-1.55-.37-.63-.2-1.12-.31-1.08-.66 2.92-1.27 5.83-2.51 5.83-2.51 2.78-1.16 3.73-1.36 3.73-1.36.12.1.14.27 0 .38z"/></svg></a>
+            <a href="mailto:core@saga.xyz" class="contact-link"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
         </div>
-        <!--***************** FULL INFO ****************-->
-
-        <!--***************** CONTACT ****************-->
-        <div class="mega-box" id="connect">
-            <h1 style="text-align:center; font-size: 20px;">CONTACT US</h1>
-            <div class="contact-links">
-                <a href="https://t.me/yourlink" target="_blank" class="contact-link">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-                </a>
-                <a href="https://www.instagram.com/akylman.hackathon/" target="_blank" class="contact-link">
-                    <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8A3.6 3.6 0 007.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6A3.6 3.6 0 0016.4 4H7.6m4.4 3.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9m0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5m4.75-.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/></svg>
-                </a>
-                <a href="mailto:core@saga.xyz" target="_blank" class="contact-link">
-                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                </a>
-            </div>
-        </div>
-        <!--***************** CONTACT ****************-->
-
-    </div>
-
-    <footer style="padding: 100px 50px; color: var(--text-dim); font-size: 12px; letter-spacing: 2px;">
-        SAGA
+        <p style="margin-top: 50px; color: var(--text-dim); font-size: 10px;">&copy; 2026 SAGA MISSION CONTROL</p>
     </footer>
 
-     <script>
-        const targetDate = new Date("May 4, 2026 09:00:00").getTime();
-    
-        const updateCountdown = setInterval(function() {
+    <script>
+        const target = new Date("May 4, 2026 09:00:00").getTime();
+
+        setInterval(() => {
             const now = new Date().getTime();
-            const distance = targetDate - now;
-    
-            // Calculations for days, hours, minutes and seconds
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-            // Output the result in the element with id="countdown"
-            document.getElementById("countdown").innerHTML = 
-                (days < 10 ? "0" + days : days) + "d " + 
-                (hours < 10 ? "0" + hours : hours) + "h " + 
-                (minutes < 10 ? "0" + minutes : minutes) + "m " + 
-                (seconds < 10 ? "0" + seconds : seconds) + "s ";
-    
-            // If the count down is finished, write some text
-            if (distance < 0) {
-                clearInterval(updateCountdown);
-                document.getElementById("countdown").innerHTML = "HACKATHON LIVE";
+            const diff = target - now;
+
+            if (diff <= 0) {
+                document.getElementById("event").innerHTML = "<h1>HACKATHON IS LIVE</h1>";
+                return;
             }
+
+            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
         }, 1000);
     </script>
+
 </body>
 </html>
