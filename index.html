@@ -107,6 +107,11 @@
             <a href="#mission">MISSION</a>
             <a href="#event">HACKATHON</a>
             <a href="#team">TEAM</a>
+            
+            <div id="countdown" style="font-size: 24px; color: var(--accent); margin-top: 20px; font-weight: bold;">
+                00d 00h 00m 00s
+            </div>
+            
             <a href="#sponsors">SPONSORS</a>
             <a href="#mentors">MENTORS</a>
             <a href="#faq">FAQ</a>
@@ -285,5 +290,32 @@
         SAGA
     </footer>
 
+     <script>
+        const targetDate = new Date("May 4, 2026 09:00:00").getTime();
+    
+        const updateCountdown = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+    
+            // Calculations for days, hours, minutes and seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+            // Output the result in the element with id="countdown"
+            document.getElementById("countdown").innerHTML = 
+                (days < 10 ? "0" + days : days) + "d " + 
+                (hours < 10 ? "0" + hours : hours) + "h " + 
+                (minutes < 10 ? "0" + minutes : minutes) + "m " + 
+                (seconds < 10 ? "0" + seconds : seconds) + "s ";
+    
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(updateCountdown);
+                document.getElementById("countdown").innerHTML = "HACKATHON LIVE";
+            }
+        }, 1000);
+    </script>
 </body>
 </html>
