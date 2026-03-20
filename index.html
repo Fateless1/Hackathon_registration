@@ -37,9 +37,9 @@
         .member-name { font-size: 24px; font-weight: bold; text-transform: uppercase; }
         .member-role { color: var(--text-dim); font-size: 14px; margin-top: 5px; }
 
-        .partner-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 60px; align-items: center; }
-        .partner-logo { width: 100%; max-width: 180px; filter: brightness(0) invert(1); opacity: 0.5; transition: 0.3s; } 
-        .partner-logo:hover { opacity: 1; }
+        .partner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 80px 40px; align-items: center; justify-items: center; margin-top: 40px; }
+        .partner-logo { width: 100%; max-width: 160px; height: auto; max-height: 80px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.4; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .partner-logo:hover { opacity: 1; transform: scale(1.05); filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
 
         .faq-item { border-bottom: 1px solid var(--border); }
         .faq-item summary { padding: 40px 0; font-size: 28px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; }
@@ -92,7 +92,15 @@
             .team-display { grid-template-columns: repeat(2, 1fr); gap: 20px; }
             .member-img { width: 150px; height: 150px; }
         }
-
+        @media (max-width: 600px) {
+            .partner-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 40px 20px; 
+            }
+            .partner-logo {
+                max-width: 120px;
+            }
+        }
         @media (max-width: 768px) {
             .contact-links { flex-direction: column; align-items: center; }
             h1 { font-size: 40px !important; }
